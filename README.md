@@ -310,6 +310,33 @@ Update a recipe field using find/replace.
 }
 ```
 
+#### create_recipe
+
+Create a new recipe in Paprika. Only `name` is required; a unique ID is generated automatically and the recipe is stored using Paprika's native structure.
+
+**Parameters:**
+- `name` (required): Recipe title
+- `ingredients` (optional): One ingredient per line. Accepts a newline-separated string or an array of strings. Group ingredients under a header by inserting a blank line then a bare header line (e.g. `For the sauce:`) before that group.
+- `directions` (optional): Cooking steps as a newline/blank-line-separated string or an array of steps
+- `categories` (optional): Array of existing category **names** (converted to UUIDs internally). Unknown names abort creation — use `list_categories` to find valid names.
+- `description`, `notes`, `source`, `source_url`, `nutritional_info` (optional): Free-form text
+- `prep_time`, `cook_time`, `total_time`, `servings`, `difficulty` (optional): Free-form text (e.g. `30 min`, `4`, `Easy`)
+- `rating` (optional): Integer 0–5
+- `image_url` (optional): URL of a recipe image
+
+**Example:**
+```json
+{
+  "name": "Chocolate Chip Cookies",
+  "ingredients": ["2 1/4 cups flour", "1 cup butter", "3/4 cup sugar"],
+  "directions": ["Cream butter and sugar.", "Mix in flour.", "Bake at 375°F for 10 min."],
+  "categories": ["Desserts"],
+  "prep_time": "15 min",
+  "cook_time": "10 min",
+  "servings": "24"
+}
+```
+
 ### Code Changes and Rebuilding
 
 The package is installed in **editable mode** (`pip install -e .`), so:
